@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Семейный бюджет — приветственная страница</title>
+
+    <style>
+      /* ============================================================
+         БАЗОВЫЕ ПЕРЕМЕННЫЕ (СВЕТЛАЯ ТЕМА)
+         Используем те же идеи, что и в `Калькулятор.html`,
+         чтобы тёмный режим выглядел согласованно на двух страницах.
+      ============================================================ */
+      :root {
+        --bg: #f4f7fb;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --success: #16a34a;
+        --danger: #dc2626;
+        --warning: #f59e0b;
+        --border: #dbe3ee;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        --radius: 16px;
+
+        --body-gradient: linear-gradient(135deg, #eef4ff, #f8fbff);
+        --theme-toggle-bg: #111827;
+        --theme-toggle-text: #ffffff;
+        --theme-toggle-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      }
+
+      /* ============================================================
+         ТЁМНАЯ ТЕМА
+         Включается классом `body.dark-theme`.
+      ============================================================ */
+      body.dark-theme {
+        --bg: #0f172a;
+        --card: #1e293b;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --primary: #60a5fa;
+        --primary-hover: #3b82f6;
+        --success: #22c55e;
+        --danger: #f87171;
+        --warning: #f59e0b;
+        --border: #334155;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+        --body-gradient: linear-gradient(135deg, #0f172a, #111827);
+        --theme-toggle-bg: #f8fafc;
+        --theme-toggle-text: #0f172a;
+        --theme-toggle-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--body-gradient);
+        color: var(--text);
+        padding: 24px;
+        transition: background 0.25s ease, color 0.25s ease;
+      }
+
+      .container {
+        max-width: 980px;
+        margin: 0 auto;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+      }
+
+      .logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: rgba(37, 99, 235, 0.12);
+        border: 1px solid rgba(37, 99, 235, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      body.dark-theme .logo {
+        background: rgba(96, 165, 250, 0.12);
+        border: 1px solid rgba(96, 165, 250, 0.25);
+      }
+
+      .hero {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 22px;
+      }
+
+      .hero h1 {
+        margin: 0 0 10px;
+        font-size: 34px;
+      }
+
+      .hero p {
+        margin: 0 0 14px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      button,
+      a.button {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 14px;
+        cursor: pointer;
+        border: 0;
+        transition: 0.2s ease;
+        background: transparent;
+        color: inherit;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #ffffff;
+        font-weight: bold;
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--primary);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(37, 99, 235, 0.14);
+      }
+
+      .grid {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .feature {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px;
+      }
+
+      .feature h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 14px;
+      }
+
+      .footer {
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      /* ============================================================
+         КНОПКА ТЕМЫ (ПРАВЫЙ НИЖНИЙ УГОЛ)
+      ============================================================ */
+      .theme-toggle-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 999;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--theme-toggle-bg);
+        color: var(--theme-toggle-text);
+        box-shadow: var(--theme-toggle-shadow);
+        font-size: 22px;
+        line-height: 1;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .theme-toggle-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 720px) {
+        .hero h1 {
+          font-size: 28px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <div class="logo">₹</div>
+          <div>Семейный бюджет</div>
+        </div>
+      </div>
+
+      <main class="hero">
+        <h1>Планируйте доходы и расходы всей семьи</h1>
+        <p>
+          Быстро посчитайте месячный бюджет, посмотрите остаток и процент сбережений.
+          Данные сохраняются в вашем браузере.
+        </p>
+
+        <div class="cta">
+          <!-- Основной CTA: переводим на страницу функционала -->
+          <a class="button btn-primary" href="Калькулятор.html">Открыть калькулятор</a>
+          <a class="button btn-secondary" href="Калькулятор.html#incomeItems">Начать с доходов</a>
+        </div>
+
+        <section class="grid" aria-label="Преимущества">
+          <article class="feature">
+            <h3>Доходы и расходы</h3>
+            <p>Добавляйте категории и суммы, удаляйте строки и редактируйте названия.</p>
+          </article>
+
+          <article class="feature">
+            <h3>Сводка бюджета</h3>
+            <p>В реальном времени считаются общий доход, расходы, остаток и прогресс затрат.</p>
+          </article>
+
+          <article class="feature">
+            <h3>Сохранение данных</h3>
+            <p>Локально через LocalStorage: можно вернуться и продолжить без настройки.</p>
+          </article>
+
+          <article class="feature">
+            <h3>Тёмная тема</h3>
+            <p>Переключайте тему кнопкой в правом нижнем углу.</p>
+          </article>
+        </section>
+
+        <div class="footer">
+          Подходит для личного использования на компьютере или телефоне. Работает без сервера:
+          открывайте `index.html` и `Калькулятор.html` в браузере.
+        </div>
+      </main>
+    </div>
+
+    <!-- КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ (ПРАВЫЙ НИЖНИЙ УГОЛ) -->
+    <button
+      id="themeToggleBtn"
+      class="theme-toggle-btn"
+      type="button"
+      onclick="toggleTheme()"
+      aria-label="Переключить тему"
+      title="Переключить тему"
+    >
+      🌙
+    </button>
+
+    <script>
+      /*
+        ЛЕНДИНГ: переключение темы (светлая/тёмная).
+        Ключ темы используем тот же, что и на `Калькулятор.html`,
+        чтобы настройки сохранялись между страницами.
+      */
+
+      function applySavedTheme() {
+        const savedTheme = localStorage.getItem('familyBudgetTheme') || 'light';
+        const isDark = savedTheme === 'dark';
+        document.body.classList.toggle('dark-theme', isDark);
+        updateThemeToggleButton(isDark);
+      }
+
+      function toggleTheme() {
+        const isDark = document.body.classList.toggle('dark-theme');
+        localStorage.setItem('familyBudgetTheme', isDark ? 'dark' : 'light');
+        updateThemeToggleButton(isDark);
+      }
+
+      function updateThemeToggleButton(isDark) {
+        const button = document.getElementById('themeToggleBtn');
+        if (!button) return;
+
+        button.textContent = isDark ? '☀️' : '🌙';
+        button.setAttribute(
+          'aria-label',
+          isDark ? 'Включить светлую тему' : 'Включить тёмную тему'
+        );
+        button.title = isDark ? 'Включить светлую тему' : 'Включить тёмную тему';
+      }
+
+      // Стартуем после загрузки страницы
+      applySavedTheme();
+    </script>
+  </body>
+</html>
+

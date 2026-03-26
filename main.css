@@ -1,0 +1,119 @@
+/* ============================================================
+   main.css
+   Общие стили для проекта "Семейный бюджет".
+
+   Примечание:
+   - Сейчас стили подключаются напрямую внутри HTML-файлов.
+   - Этот файл добавлен, чтобы структура проекта была полноценной
+     (как на вашем примере: `styles/main.css`).
+   - Позже можно будет легко вынести стили из HTML в этот файл.
+============================================================ */
+
+:root {
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warning: #f59e0b;
+  --border: #dbe3ee;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --radius: 16px;
+
+  --body-gradient: linear-gradient(135deg, #eef4ff, #f8fbff);
+
+  --input-bg: #ffffff;
+  --summary-bg: #f8fafc;
+  --progress-track: #e5e7eb;
+  --badge-bg: #e0f2fe;
+  --badge-text: #0369a1;
+  --result-bg: #f8fafc;
+  --btn-danger-bg: #fee2e2;
+  --btn-danger-hover: #fecaca;
+  --btn-secondary-bg: #eef2ff;
+  --btn-secondary-hover: #dbeafe;
+  --btn-warning-bg: #fff7ed;
+  --btn-warning-hover: #ffedd5;
+
+  --theme-toggle-bg: #111827;
+  --theme-toggle-text: #ffffff;
+  --theme-toggle-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-theme {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --primary: #60a5fa;
+  --primary-hover: #3b82f6;
+  --success: #22c55e;
+  --danger: #f87171;
+  --warning: #f59e0b;
+  --border: #334155;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  --body-gradient: linear-gradient(135deg, #0f172a, #111827);
+
+  --input-bg: #0f172a;
+  --summary-bg: #111827;
+  --progress-track: #334155;
+  --badge-bg: #0c4a6e;
+  --badge-text: #bae6fd;
+  --result-bg: #111827;
+
+  --btn-danger-bg: #7f1d1d;
+  --btn-danger-hover: #991b1b;
+  --btn-secondary-bg: #1e3a8a;
+  --btn-secondary-hover: #1d4ed8;
+  --btn-warning-bg: #7c2d12;
+  --btn-warning-hover: #9a3412;
+
+  --theme-toggle-bg: #f8fafc;
+  --theme-toggle-text: #0f172a;
+  --theme-toggle-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--body-gradient);
+  color: var(--text);
+  padding: 24px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* ============================================================
+   Кнопка переключения темы (правый нижний угол)
+============================================================ */
+.theme-toggle-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--theme-toggle-bg);
+  color: var(--theme-toggle-text);
+  box-shadow: var(--theme-toggle-shadow);
+  font-size: 22px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-btn:hover {
+  transform: translateY(-2px);
+}
+
