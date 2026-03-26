@@ -293,7 +293,6 @@
       id="themeToggleBtn"
       class="theme-toggle-btn"
       type="button"
-      onclick="toggleTheme()"
       aria-label="Переключить тему"
       title="Переключить тему"
     >
@@ -330,6 +329,13 @@
           isDark ? 'Включить светлую тему' : 'Включить тёмную тему'
         );
         button.title = isDark ? 'Включить светлую тему' : 'Включить тёмную тему';
+      }
+
+      // Подключаем обработчик клика на кнопку переключения темы.
+      // Это надёжнее, чем inline-атрибуты, и не создаёт лишних глобальных зависимостей.
+      const themeBtn = document.getElementById('themeToggleBtn');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', toggleTheme);
       }
 
       // Стартуем после загрузки страницы
